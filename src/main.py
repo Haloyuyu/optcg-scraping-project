@@ -1,7 +1,8 @@
-import scraper
+import scraper.main
 
 def main():
-    print("Hello, world!")
+    scraper.main.main()
+    pass
 
 if __name__ == "__main__":
     main()
