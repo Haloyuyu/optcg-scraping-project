@@ -22,22 +22,26 @@ setList = []
 setElements = []
 
 try:
-    set_filter_bar = driver.find_element(By.XPATH, "//*[@id=\"frmSearch\"]/div[1]/div[2]/button")
+    # set_filter_bar = WebDriverWait(driver, 10).until(
+    #     EC.presence_of_element_located((By.XPATH, "//*[@id=\"frmSearch\"]/div[1]/div[2]/button")))
+    set_filter_bar = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "selModalButton")))
     set_filter_bar.click()
-    set_list = driver.find_element(By.XPATH, "//*[@id=\"cardlist\"]/div[2]/div[2]")
+    set_list = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//*[@id=\"cardlist\"]/div[2]/div[2]")))
     set_elements = set_list.find_elements(By.CLASS_NAME, "selModalClose")
-
+    
 except Exception as e:
     assert False, f"An error occurred: {e}"
 
-print(f"List of sets found: {[set_el.text for set_el in setElements]}")
+print(f"List of sets found: {[set_el.text for set_el in set_elements]}")
 #-------------------------------------------------------------------------------
 
 # Function to get all cards from each set
 all_cards = []
 
 # Loop through each set and get the cards
-for idx, set_el in enumerate(set_elements[6:9]): # setElements[3:-1] <------- limiting to 1 set for testing
+for idx, set_el in enumerate(set_elements): # setElements[3:-1] <------- limiting to 1 set for testing
     # Open filter if not the first iteration
     if idx > 0:
         set_filter_bar = driver.find_element(By.XPATH, "//*[@id=\"frmSearch\"]/div[1]/div[2]/button")
@@ -46,8 +50,8 @@ for idx, set_el in enumerate(set_elements[6:9]): # setElements[3:-1] <------- li
         set_elements = set_list.find_elements(By.CLASS_NAME, "selModalClose")
         set_el = set_elements[idx]
 
-    # Select the set
-    set_name = set_el.text
+    # Select the set 
+    # set_name = set_el.text
     set_el.click()
     search_bar = driver.find_element(By.XPATH, "//*[@id=\"frmSearch\"]/div[4]/input")
     search_bar.click()
@@ -57,7 +61,7 @@ for idx, set_el in enumerate(set_elements[6:9]): # setElements[3:-1] <------- li
     cards = driver.find_elements(By.CLASS_NAME, "lazy")
     for idx, card in enumerate(cards[:2]): # <------- limiting to first card for testing
         try:
-            card[idx].click() # Open card modal
+            card.click() # Open card modal
 
             # Function to retrieve card details
             # Function to retrieve card ID
