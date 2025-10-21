@@ -2,3 +2,4 @@ tests/
 .venv/
 claude/
 data_processing/data/
+src/scraper/__pycache__/
