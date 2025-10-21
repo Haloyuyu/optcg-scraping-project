@@ -14,8 +14,7 @@ Designed for use in OPTCG-related applications, analytics, or community tools.
 
 ## 📂 Project Structure:
 `/scrapers`: Scraping scripts organized by source.  
-`/data`: Raw and processed data outputs.  
-`/utils`: Helper functions for data processing.  
+`/data`: Raw and processed data outputs.    
 
 ## 📌 Purpose:
 This repository aims to streamline data collection for OPTCG, enabling myself, developers and enthusiasts to build tools, dashboards, or analyses without manual data entry.
