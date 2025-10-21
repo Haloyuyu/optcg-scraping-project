@@ -1,5 +1,6 @@
-tests/
 .venv/
+.vscode/
+src/scraper/__pycache__/
+tests/
 claude/
 data_processing/data/
-src/scraper/__pycache__/
