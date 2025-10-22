@@ -2,5 +2,5 @@
 .vscode/
 src/scraper/__pycache__/
 tests/
-claude/
+old_scripts/
 data_processing/data/
