@@ -1,2 +1,5 @@
 selenium
 requests
+tqdm
+bs4
+webdriver_manager
