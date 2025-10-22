@@ -15,6 +15,8 @@ import time
 from typing import List, Optional
 from tqdm import tqdm
 
+from dataclasses import dataclass, asdict
+from typing import Optional
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -23,8 +25,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-from card import Card
-
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -32,6 +32,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@dataclass
+class Card:
+    """Card data model."""
+    card_name: str
+    card_id: Optional[str] = None
+    set_name: Optional[str] = None
+    rarity: Optional[str] = None
+    color: Optional[str] = None
+    card_type: Optional[str] = None
+    cost: Optional[int] = None
+    life: Optional[int] = None
+    power: Optional[int] = None
+    attribute: Optional[str] = None
+    counter: Optional[int] = None
+    effect: Optional[str] = None
+    feature: Optional[str] = None
+    block: Optional[str] = None
+    image_url: Optional[str] = None
+
+    def to_dict(self):
+        return asdict(self)
 
 def setup_driver(headless: bool = True):
     """Setup Chrome WebDriver."""

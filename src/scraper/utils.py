@@ -1,4 +1,4 @@
-from card import Card
+from scraper import Card
 
 from typing import List
 import sys
