@@ -65,13 +65,20 @@ def setup_driver(headless: bool = True):
     # CHROME_BIN env var and check common Windows install locations.
     chrome_bin = os.environ.get("CHROME_BIN") or os.environ.get("GOOGLE_CHROME_SHIM")
     if not chrome_bin:
-        # Common locations for Chrome/Chromium on Windows
+        # Common locations for Chrome/Chromium on Windows and Linux (WSL)
         possible = [
+            # Windows paths
             os.path.expandvars(r"%ProgramFiles%\Google\Chrome\Application\chrome.exe"),
             os.path.expandvars(r"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"),
             os.path.expandvars(r"%LocalAppData%\Google\Chrome\Application\chrome.exe"),
             os.path.expandvars(r"%ProgramFiles%\Chromium\Application\chrome.exe"),
             os.path.expandvars(r"%LocalAppData%\Chromium\Application\chrome.exe"),
+            # Linux paths (WSL, Docker, etc.)
+            "/usr/bin/chromium-browser",
+            "/usr/bin/chromium",
+            "/usr/bin/google-chrome",
+            "/usr/bin/google-chrome-stable",
+            "/snap/bin/chromium",
         ]
         for p in possible:
             if p and os.path.exists(p):
@@ -105,7 +112,7 @@ def setup_driver(headless: bool = True):
         # "cannot find Chrome binary" Selenium message.
         if not getattr(options, 'binary_location', None):
             # Quick PATH check for chrome/chromium executables
-            if not (shutil.which('chrome') or shutil.which('chrome.exe') or shutil.which('chromium') or shutil.which('chromium.exe')):
+            if not (shutil.which('chrome') or shutil.which('chrome.exe') or shutil.which('chromium') or shutil.which('chromium.exe') or shutil.which('chromium-browser') or shutil.which('google-chrome')):
                 logger.error("Chrome/Chromium binary not found. Set CHROME_BIN env var to the browser executable or install Chrome.")
         return webdriver.Chrome(service=service, options=options)
     except Exception as e:
